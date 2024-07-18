@@ -29,3 +29,9 @@ jobs:
     #     options: --rm -v ${{ github.workspace }}:/xk6 -u $(id -u):$(id -g)
     #     run: |
     #       xk6 build --with github.com/LeonAdato/xk6-output-statsd
+
+    - name: install xk6
+      run: go install go.k6.io/xk6/cmd/xk6@latest
+
+    - name: install xk6
+      run: xk6 build --with github.com/LeonAdato/xk6-output-statsd
