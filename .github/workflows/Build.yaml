@@ -19,13 +19,13 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     
-    - name: build k6
-      container:
-        image: grafana/xk6
-      volumes:
-        - ${pwd}:/xk6
-      options: --rm -it -u "$(id -u):$(id -g)" -v "${PWD}:/xk6"
-      run: build --with github.com/LeonAdato/xk6-output-statsd
+    # - name: build k6
+    #   container:
+    #     image: grafana/xk6
+    #   volumes:
+    #     - ${pwd}:/xk6
+    #   options: --rm -it -u "$(id -u):$(id -g)" -v "${PWD}:/xk6"
+    #   run: build --with github.com/LeonAdato/xk6-output-statsd
  
     - name: build k6 v2
       uses: addnab/docker-run-action@v3
