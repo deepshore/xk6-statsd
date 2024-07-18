@@ -31,5 +31,5 @@ jobs:
       uses: addnab/docker-run-action@v3
       with:
         image: grafana/xk6
-        options: --rm -v "${{PWD}}:/xk6"
+        options: --rm -v ${{ github.workspace }}:/xk6
         run:  build --with github.com/LeonAdato/xk6-output-statsd
