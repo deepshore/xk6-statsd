@@ -18,19 +18,14 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    
-    # - name: build k6
-    #   container:
-    #     image: grafana/xk6
-    #   volumes:
-    #     - ${pwd}:/xk6
-    #   options: --rm -it -u "$(id -u):$(id -g)" -v "${PWD}:/xk6"
-    #   run: build --with github.com/LeonAdato/xk6-output-statsd
- 
-    - name: build k6 v2
-      uses: addnab/docker-run-action@v3
+    - uses: actions/setup-go@v3
       with:
-        image: grafana/xk6
-        options: --rm -v ${{ github.workspace }}:/xk6 -u $(id -u):$(id -g)
-        run: |
-          xk6 build --with github.com/LeonAdato/xk6-output-statsd
+        go-version: '^1.22' # The Go version to download (if necessary) and use.
+    
+    # - name: build k6 v2
+    #   uses: addnab/docker-run-action@v3
+    #   with:
+    #     image: grafana/xk6
+    #     options: --rm -v ${{ github.workspace }}:/xk6 -u $(id -u):$(id -g)
+    #     run: |
+    #       xk6 build --with github.com/LeonAdato/xk6-output-statsd
