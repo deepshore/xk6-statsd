@@ -32,4 +32,5 @@ jobs:
       with:
         image: grafana/xk6
         options: --rm -v ${{ github.workspace }}:/xk6
-        run:  build --with github.com/LeonAdato/xk6-output-statsd
+        run: |
+          xk6 build --with github.com/LeonAdato/xk6-output-statsd
