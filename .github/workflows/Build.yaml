@@ -1,0 +1,35 @@
+name: Verification Build
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+# docker run --rm -it -u "$(id -u):$(id -g)" -v "${PWD}:/xk6" grafana/xk6 build v0.43.1 \
+#   --with github.com/mostafa/xk6-kafka@v0.17.0 
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: build k6
+      container:
+        image: grafana/xk6
+      volumes:
+        - ${pwd}:/xk6
+      options: --rm -it -u "$(id -u):$(id -g)" -v "${PWD}:/xk6"
+      run: build --with github.com/LeonAdato/xk6-output-statsd
+ 
+    - name: build k6 v2
+      uses: addnab/docker-run-action@v3
+      with:
+        image: grafana/xk6
+        options: --rm -it -u "$(id -u):$(id -g)" -v "${PWD}:/xk6"
+        run:  build --with github.com/LeonAdato/xk6-output-statsd
