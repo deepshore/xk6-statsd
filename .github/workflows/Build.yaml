@@ -40,5 +40,5 @@ jobs:
       run: ls -lah
       
     - name: build image      
-      run: docker build .
+      run: docker build -t k6-statsd .
 
