@@ -7,9 +7,6 @@ on:
     branches: [ "main" ]
   workflow_dispatch:
 
-# docker run --rm -it -u "$(id -u):$(id -g)" -v "${PWD}:/xk6" grafana/xk6 build v0.43.1 \
-#   --with github.com/mostafa/xk6-kafka@v0.17.0 
-
 jobs:
 
   build:
@@ -25,16 +22,12 @@ jobs:
     - name: install xk6
       run: go install go.k6.io/xk6/cmd/xk6@latest
 
-    - name: create k6 executable
+    - name: create k6 binary
       run: xk6 build --with github.com/LeonAdato/xk6-output-statsd
-
-    # - name: build image      
-    #   run: docker build -t k6-statsd .
 
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
 
-    # docker tag <name of the image> <dockerhub username> <name of your repo> <version>
     - name: Set outputs for docker build
       id: vars
       run: |
@@ -51,6 +44,6 @@ jobs:
       uses: docker/build-push-action@v6
       with:
         context: .
-        platforms: linux/amd64,linux/arm64
+        platforms: linux/amd64 ,linux/arm64
         push: false
         tags: ${{ steps.vars.outputs.image_name }}:latest, ${{ steps.vars.outputs.image_name }}:${{ steps.vars.outputs.image_tag }}
