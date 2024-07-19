@@ -37,4 +37,8 @@ jobs:
       run: xk6 build --with github.com/LeonAdato/xk6-output-statsd
 
     - name: creats k6 ececutable
-      run: ll
+      run: ls -lah
+      
+    - name: build image      
+      docker build .
+
